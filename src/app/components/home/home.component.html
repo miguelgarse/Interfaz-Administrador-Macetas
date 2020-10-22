@@ -1,0 +1,23 @@
+<body>
+    <button type="button" (click)="newCliente()" class="btn btn-primary" style="width: 100%;">Nuevo Cliente</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">ThingsBoardId</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of clientes; let i = index;">
+                <th scope="row">{{i+1}}</th>
+                <td (click)="existingCliente(client.thingsboardId)">{{client.descripcion}}</td>
+                <td (click)="existingCliente(client.thingsboardId)">{{client.thingsboardId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>

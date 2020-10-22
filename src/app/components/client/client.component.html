@@ -1,0 +1,78 @@
+<h4>Formulario de Cliente</h4>
+<hr>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+    <div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">ThingsBoard Id</label>
+            <div class="col">
+                <input class="form-control" type="email" placeholder="ThingsBoard Id" formControlName="thingsboardId" [class.is-invalid]="clienteExistente">
+                <small *ngIf="clienteExistente" class="text-danger">
+                      Este cliente ya existe
+                 </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Descripcion</label>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Descripcion" formControlName="descripcion" [class.is-invalid]="descripcionNoValida">
+                <small *ngIf="descripcionNoValida" class="text-danger">
+                    Descripcion Vacia
+               </small>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h5>Sensores del Cliente</h5>
+    <br>
+
+    <div class="row">
+        <div class="col">
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo del Sensor</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="sensores">
+                    <tr *ngFor="let control of sensores.controls; let i = index">
+                        <td> {{ i + 1 }} </td>
+                        <td [formGroupName]="i">
+                            <input class="form-control" type="text" formControlName="nombre">
+                        </td>
+                        <td [formGroupName]="i">
+                            <select id="inputState" class="form-control" type="text" formControlName="tipoSensorId">
+                                <option selected>Choose</option>
+                                  <option *ngFor="let tipo of tiposSensor; let i = index">{{tipo}}</option>
+                                </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarSensor(i)">
+                    Borrar
+                  </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarSensor()">
+            + Agregar
+          </button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group">
+            <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+        </div>
+    </div>
+
+</form>
